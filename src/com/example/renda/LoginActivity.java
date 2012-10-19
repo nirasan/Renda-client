@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
             protected Http.Result doInBackground(Void...voids) {
                 // ユーザーの最新情報をサーバーに問い合わせる
                 String uri = UriBuilder.user_show_url(username, password);
-                Http.Result result = Http.Client.getRequest(uri);
+                Http.Result result = Http.Client.request("GET", uri);
                 return result;
             }
             
