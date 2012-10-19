@@ -1,5 +1,7 @@
 package com.example.renda;
 
+import java.util.HashMap;
+
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,17 +15,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity {
+public class RegisterActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
     }
-    
-    public void loginButtonOnClick(View v) {
-        
-        final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
+
+    public void registerButtonOnClick(View v) {
         
         // ユーザー名とパスワードを入力欄から取得
         final String username = ((EditText)findViewById(R.id.editTextUsername)).getText().toString();
@@ -31,7 +31,7 @@ public class LoginActivity extends Activity {
         
         // 取得できなければエラーの表示
         if (username.equals("") && password.equals("")) {
-            ((TextView)findViewById(R.id.textView1)).setText("user not found");
+            ((TextView)findViewById(R.id.textView1)).setText("please input username and password");
             return;
         }
         
@@ -39,18 +39,22 @@ public class LoginActivity extends Activity {
             
             @Override
             protected Http.Result doInBackground(Void...voids) {
-                // ユーザーの最新情報をサーバーに問い合わせる
-                String uri = UriBuilder.user_show_url(username, password);
-                Http.Result result = Http.Client.request("GET", uri);
+                // ユーザーを作成する
+                String uri = UriBuilder.user_add_url();
+                HashMap<String, String> param = new HashMap<String, String>();
+                param.put("username", username);
+                param.put("password", password);
+                Http.Result result = Http.Client.request("POST", uri, param);
                 return result;
             }
             
             @Override
             protected void onPostExecuteWithDismissDialog(Http.Result result) {
                 switch (result.statusCode) {
-                    // 問い合わせに成功したらユーザー情報を更新してメイン画面へ
+                    // 作成に成功したらユーザー情報を保存してメイン画面へ
                     case HttpStatus.SC_OK:
                         try {
+                            SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
                             Editor editor = preferences.edit();
                             editor.putString("username", username);
                             editor.putString("password", password);
@@ -59,20 +63,16 @@ public class LoginActivity extends Activity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         break;
-                    // ユーザーがいなかったらエラーの表示
+                    // 失敗したらエラーの表示
                     case HttpStatus.SC_NOT_FOUND:
-                        ((TextView)findViewById(R.id.textView1)).setText("user not found");
+                        ((TextView)findViewById(R.id.textView1)).setText("invalid username or password");
                         break;
                     default:
                         break;
                 }
             }
         }.execute();
-    }
-    
-    public void registerButtonOnClick(View v) {
-        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
 }
