@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 
@@ -48,7 +49,9 @@ public class LogoActivity extends Activity {
                     case HttpStatus.SC_OK:
                         try {
                             JSONObject jsonObject = new JSONObject(result.responseBody);
-                            preferences.edit().putInt("score", jsonObject.getInt("score"));
+                            Editor editor = preferences.edit();
+                            editor.putInt("score", jsonObject.getInt("score"));
+                            editor.commit();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

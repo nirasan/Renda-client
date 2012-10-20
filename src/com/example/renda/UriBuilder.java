@@ -24,5 +24,12 @@ public class UriBuilder {
         builder.path("/user/add");
         return builder.build().toString();
     }
-
+    
+    public static String user_edit_url() {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(scheme);
+        builder.encodedAuthority(authority);
+        builder.path("/user/edit");
+        return builder.build().toString();
+    }
 }

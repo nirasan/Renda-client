@@ -56,6 +56,7 @@ public class LoginActivity extends Activity {
                             editor.putString("password", password);
                             JSONObject jsonObject = new JSONObject(result.responseBody);
                             editor.putInt("score", jsonObject.getInt("score"));
+                            editor.commit();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
