@@ -49,10 +49,15 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // ログアウト
             case R.id.menu1:
-                //TODO: プリファレンスの初期化
+                SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
+                Editor editor = preferences.edit();
+                editor.clear();
+                editor.commit();
                 startActivity(new Intent(MainActivity.this, LogoActivity.class));
                 break;
+            // ランキング
             case R.id.menu2:
                 startActivity(new Intent(MainActivity.this, RankingActivity.class));
                 break;
