@@ -7,9 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,28 @@ public class MainActivity extends Activity {
         
         ((TextView)findViewById(R.id.textViewUsername)).setText(username);
         updateScore();
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu1:
+                //TODO: プリファレンスの初期化
+                startActivity(new Intent(MainActivity.this, LogoActivity.class));
+                break;
+            case R.id.menu2:
+                startActivity(new Intent(MainActivity.this, RankingActivity.class));
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     public void countButtonOnClick(View v) {
@@ -89,6 +114,10 @@ public class MainActivity extends Activity {
                 }
             }
         }.execute();
+    }
+    
+    public void rankingButtonOnClick(View v) {
+        startActivity(new Intent(MainActivity.this, RankingActivity.class));
     }
     
     private void updateScore() {
