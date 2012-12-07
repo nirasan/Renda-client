@@ -25,13 +25,17 @@ public class RegisterActivity extends Activity {
 
     public void registerButtonOnClick(View v) {
         
+        // ユーザー名とパスワードをプリファレンスから取得
+        final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
+        final String oauth_token  = preferences.getString("oauth_token", "");
+        final String mail_address = preferences.getString("mail_address", "");
+        
         // ユーザー名とパスワードを入力欄から取得
         final String username = ((EditText)findViewById(R.id.editTextUsername)).getText().toString();
-        final String password = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
         
         // 取得できなければエラーの表示
-        if (username.equals("") && password.equals("")) {
-            ((TextView)findViewById(R.id.textView1)).setText("please input username and password");
+        if (username.equals("")) {
+            ((TextView)findViewById(R.id.textView1)).setText("please input username");
             return;
         }
         
@@ -43,7 +47,6 @@ public class RegisterActivity extends Activity {
                 String uri = UriBuilder.user_add_url();
                 HashMap<String, String> param = new HashMap<String, String>();
                 param.put("username", username);
-                param.put("password", password);
                 Http.Result result = Http.Client.request("POST", uri, param);
                 return result;
             }
@@ -57,7 +60,6 @@ public class RegisterActivity extends Activity {
                             SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
                             Editor editor = preferences.edit();
                             editor.putString("username", username);
-                            editor.putString("password", password);
                             JSONObject jsonObject = new JSONObject(result.responseBody);
                             editor.putInt("score", jsonObject.getInt("score"));
                         } catch (JSONException e) {

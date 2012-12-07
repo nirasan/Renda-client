@@ -1,13 +1,8 @@
 package com.example.renda;
 
-import org.apache.http.HttpStatus;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,14 +19,19 @@ public class LogoActivity extends Activity {
         final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
         
         // ユーザー名とパスワードをプリファレンスから取得
-        final String username = preferences.getString("username", "");
-        final String password = preferences.getString("password", "");
+        final String access_token = preferences.getString("access_token", "");
+        final String mail_address = preferences.getString("mail_address", "");
         
-        // 取得できなければログイン画面へ
-        if (username.equals("") && password.equals("")) {
-            startActivity(new Intent(LogoActivity.this, LoginActivity.class));
+        // 取得できなければOAuthログイン画面へ
+        if (access_token.equals("") && mail_address.equals("")) {
+            startActivity(new Intent(LogoActivity.this, OAuthLoginActivity.class));
+        }
+        // 取得できればユーザーログイン画面へ
+        else {
+            startActivity(new Intent(LogoActivity.this, UserLoginActivity.class));
         }
         
+        /* TODO: UserLoginActivity に移動
         new AsyncTaskWithDialog<Http.Result>(this) {
             
             @Override
@@ -66,5 +66,6 @@ public class LogoActivity extends Activity {
                 }
             }
         }.execute();
+        */
     }
 }

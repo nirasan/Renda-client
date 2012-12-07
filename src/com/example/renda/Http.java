@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -55,10 +56,12 @@ public class Http {
             // 問い合わせ実行
             DefaultHttpClient httpClient = new DefaultHttpClient();
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            CookieStore cookieStore = null;
             try {
                 // 問い合わせ成功ならレスポンスのbodyを取得
                 responseBody = httpClient.execute(request, responseHandler);
                 statusCode = HttpStatus.SC_OK;
+                cookieStore= httpClient.getCookieStore();
             }
             catch (ClientProtocolException e) {
                 // 200番台以外のステータスコードは例外扱い
@@ -72,7 +75,12 @@ public class Http {
                 httpClient.getConnectionManager().shutdown();
             }
             
-            return new Http.Result(statusCode, responseBody);
+            Http.Result result = new Http.Result(statusCode, responseBody);
+            if (cookieStore != null) {
+                result.cookieStore = cookieStore;
+            }
+            
+            return result;
         }
     }
     
@@ -80,6 +88,7 @@ public class Http {
         
         public int statusCode;
         public String responseBody;
+        public CookieStore cookieStore = null;
         
         public Result(int statusCode, String responseBody) {
             this.statusCode = statusCode;

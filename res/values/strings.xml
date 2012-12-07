@@ -10,5 +10,8 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_ranking">RankingActivity</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_oauth_login">OAuthLoginActivity</string>
+    <string name="title_activity_user_login">UserLoginActivity</string>
+    <string name="title_activity_oauth_login_web_view">OAuthLoginWebViewActivity</string>
 
 </resources>
