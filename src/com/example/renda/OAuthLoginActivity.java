@@ -51,7 +51,7 @@ public class OAuthLoginActivity extends Activity {
                     editor.putString("mail_address", mail_address);
                     editor.commit();
                     
-                    //startActivity(new Intent(OAuthLoginActivity.this, UserLoginActivity.class));
+                    startActivity(new Intent(OAuthLoginActivity.this, UserLoginActivity.class));
                 }
                 return;
         }

@@ -22,6 +22,7 @@ public class LogoActivity extends Activity {
         final String access_token = preferences.getString("access_token", "");
         final String mail_address = preferences.getString("mail_address", "");
         
+        
         // 取得できなければOAuthログイン画面へ
         if (access_token.equals("") && mail_address.equals("")) {
             startActivity(new Intent(LogoActivity.this, OAuthLoginActivity.class));

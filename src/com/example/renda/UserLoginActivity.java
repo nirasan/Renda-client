@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 public class UserLoginActivity extends Activity {
@@ -22,7 +23,7 @@ public class UserLoginActivity extends Activity {
         final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
         
         // ユーザー名とパスワードをプリファレンスから取得
-        final String oauth_token  = preferences.getString("oauth_token", "");
+        final String access_token = preferences.getString("access_token", "");
         final String mail_address = preferences.getString("mail_address", "");
         
         new AsyncTaskWithDialog<Http.Result>(this) {
@@ -30,7 +31,7 @@ public class UserLoginActivity extends Activity {
             @Override
             protected Http.Result doInBackground(Void...voids) {
                 // ユーザーの最新情報をサーバーに問い合わせる
-                String uri = UriBuilder.user_show_url(mail_address, oauth_token); //TODO: UriBuilderに対応URLの記述
+                String uri = UriBuilder.user_exist_url(mail_address, access_token);
                 Http.Result result = Http.Client.request("GET", uri);
                 return result;
             }
@@ -38,19 +39,22 @@ public class UserLoginActivity extends Activity {
             @Override
             protected void onPostExecuteWithDismissDialog(Http.Result result) {
                 switch (result.statusCode) {
-                    // mail_address, oauth_tokenともに正しく問い合わせに成功したらユーザー情報を更新してメイン画面へ
+                    // mail_address, access_tokenともに正しく問い合わせに成功したらユーザー情報を更新してメイン画面へ
                     case HttpStatus.SC_OK:
+                        /*
                         // cookie経由でアクセストークンの更新
                         if (result.cookieStore != null) {
                             List<Cookie> cookies = result.cookieStore.getCookies();
                             for (Cookie cookie : cookies) {
-                                if (cookie.getName().equals("oauth_token")) {
+                                if (cookie.getName().equals("access_token")) {
+                                    Log.v("UserLogin set cookie", cookie.getValue());
                                     Editor editor = preferences.edit();
-                                    editor.putString("oauth_token", cookie.getValue());
+                                    editor.putString("access_token", cookie.getValue());
                                     editor.commit();
                                 }
                             }
                         }
+                        */
                         startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
                         break;
                         /*

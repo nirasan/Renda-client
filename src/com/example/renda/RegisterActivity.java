@@ -27,7 +27,7 @@ public class RegisterActivity extends Activity {
         
         // ユーザー名とパスワードをプリファレンスから取得
         final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
-        final String oauth_token  = preferences.getString("oauth_token", "");
+        final String access_token = preferences.getString("access_token", "");
         final String mail_address = preferences.getString("mail_address", "");
         
         // ユーザー名とパスワードを入力欄から取得

@@ -7,9 +7,9 @@ public class UriBuilder {
     private static final String scheme = "http";
     private static final String authority = "mother.example.com:3000";
      
-    public static String user_show_url(String mail_address, String access_token) {
+    public static String user_exist_url(String mail_address, String access_token) {
         return builder()
-                .path("/user/show")
+                .path("/user/exist")
                 .appendQueryParameter("mail_address", mail_address)
                 .appendQueryParameter("access_token", access_token)
                 .build().toString();
