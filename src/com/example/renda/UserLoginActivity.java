@@ -1,16 +1,12 @@
 package com.example.renda;
 
-import java.util.List;
-
 import org.apache.http.HttpStatus;
-import org.apache.http.cookie.Cookie;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 public class UserLoginActivity extends Activity {

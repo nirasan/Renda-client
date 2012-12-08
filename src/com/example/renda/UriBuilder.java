@@ -15,8 +15,8 @@ public class UriBuilder {
                 .build().toString();
     }
     
-    public static String user_add_url() {
-        return builder().path("/user/add")
+    public static String user_register_url() {
+        return builder().path("/user/register")
                 .build().toString();
     }
     

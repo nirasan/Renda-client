@@ -3,8 +3,6 @@ package com.example.renda;
 import java.util.HashMap;
 
 import org.apache.http.HttpStatus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 
@@ -44,9 +43,11 @@ public class RegisterActivity extends Activity {
             @Override
             protected Http.Result doInBackground(Void...voids) {
                 // ユーザーを作成する
-                String uri = UriBuilder.user_add_url();
+                String uri = UriBuilder.user_register_url();
                 HashMap<String, String> param = new HashMap<String, String>();
                 param.put("username", username);
+                param.put("mail_address", mail_address);
+                param.put("access_token", access_token);
                 Http.Result result = Http.Client.request("POST", uri, param);
                 return result;
             }
@@ -56,22 +57,17 @@ public class RegisterActivity extends Activity {
                 switch (result.statusCode) {
                     // 作成に成功したらユーザー情報を保存してメイン画面へ
                     case HttpStatus.SC_OK:
-                        try {
-                            SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
-                            Editor editor = preferences.edit();
-                            editor.putString("username", username);
-                            JSONObject jsonObject = new JSONObject(result.responseBody);
-                            editor.putInt("score", jsonObject.getInt("score"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Editor editor = preferences.edit();
+                        editor.putString("username", username);
+                        editor.commit();
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         break;
-                    // 失敗したらエラーの表示
-                    case HttpStatus.SC_NOT_FOUND:
-                        ((TextView)findViewById(R.id.textView1)).setText("invalid username or password");
+                    // 失敗したらログインしなおし
+                    case HttpStatus.SC_BAD_REQUEST:
+                        startActivity(new Intent(RegisterActivity.this, OAuthLoginActivity.class));
                         break;
                     default:
+                        Toast.makeText(RegisterActivity.this, "something error happens", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
