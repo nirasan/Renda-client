@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class UserLoginActivity extends Activity {
 
@@ -85,6 +86,7 @@ public class UserLoginActivity extends Activity {
                         startActivity(new Intent(UserLoginActivity.this, OAuthLoginActivity.class));
                         break;
                     default:
+                        Toast.makeText(UserLoginActivity.this, "Send failed", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

@@ -9,18 +9,9 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="PUSH!" 
-        android:onClick="countButtonOnClick" />
+        android:onClick="countButtonOnClick"
+        android:text="PUSH!" />
 
-    <Button
-        android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/countButton"
-        android:layout_centerHorizontal="true"
-        android:text="Send" 
-        android:onClick="sendButtonOnClick"/>
-    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -29,17 +20,16 @@
         android:layout_centerHorizontal="true" >
 
         <TextView
-            android:id="@+id/textViewScoreTitle"
+            android:id="@+id/textViewTimeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score:" />
+            android:text="Time:" />
 
         <TextView
-            android:id="@+id/textViewScore"
+            android:id="@+id/textViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00000000" />
-
+            android:text="0.0" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="________" />
-
     </LinearLayout>
 
     <TextView
@@ -70,5 +59,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
         android:text="0" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/countButton"
+        android:layout_below="@+id/countButton"
+        android:onClick="sendButtonOnClick"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sendButton"
+        android:layout_alignBottom="@+id/sendButton"
+        android:layout_alignLeft="@+id/countButton"
+        android:onClick="startButtonOnClick"
+        android:text="Start" />
 
 </RelativeLayout>

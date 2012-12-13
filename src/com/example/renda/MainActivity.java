@@ -1,6 +1,8 @@
 package com.example.renda;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
@@ -11,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +23,10 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     
     private int count;
-    private int score;
     private String username;
     private String password;
     private SharedPreferences preferences;
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,32 @@ public class MainActivity extends Activity {
         
         count    = 0;
         preferences = getSharedPreferences("user", MODE_PRIVATE);
-        score    = preferences.getInt("score", 0);
         username = preferences.getString("username", "");
         password = preferences.getString("password", "");
         
         ((TextView)findViewById(R.id.textViewUsername)).setText(username);
-        updateScore();
+        updateView();
+        
+        // タイマーで残り時間があれば減らす
+        final Timer mTimer = new Timer(true);
+        final Handler mHandler = new Handler();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView textViewTime = findTextViewById(R.id.textViewTime);
+                        float fTime = Float.valueOf(textViewTime.getText().toString());
+                        fTime = Float.valueOf(String.format("%.1f", fTime));
+                        if (fTime > 0.0f) {
+                            fTime -= 0.1;
+                            textViewTime.setText(String.format("%.1f", fTime));
+                        }
+                    }
+                });
+            }
+        }, 100, 100);
     }
     
     @Override
@@ -67,11 +90,26 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    // カウントボタン押下時に残り時間があればカウントアップ
     public void countButtonOnClick(View v) {
-        count++;
-        updateScore();
+        TextView textViewTime = findTextViewById(R.id.textViewTime);
+        float fTime = Float.valueOf(textViewTime.getText().toString());
+        fTime = Float.valueOf(String.format("%.1f", fTime));
+        if (fTime > 0.0f) {
+            count++;
+            updateView();
+        }
     }
     
+    // スタートボタン押下で残り時間を増やしてカウント可能な状態開始
+    public void startButtonOnClick(View v) {
+        TextView textViewTime = findTextViewById(R.id.textViewTime);
+        float fTime = Float.valueOf(textViewTime.getText().toString());
+        fTime += 5.0f;
+        textViewTime.setText(String.valueOf(fTime));
+    }
+    
+    // 送信ボタンでカウントの送信
     public void sendButtonOnClick(View v) {
         
         new AsyncTaskWithDialog<Http.Result>(this) {
@@ -96,16 +134,16 @@ public class MainActivity extends Activity {
                         try {
                             // スコア更新
                             JSONObject jsonObject = new JSONObject(result.responseBody);
-                            score = jsonObject.getInt("score");
+                            //score = jsonObject.getInt("score");
                             Editor editor = preferences.edit();
-                            editor.putInt("score", score);
+                            //editor.putInt("score", score);
                             editor.commit();
                             // 特典表示
                             Toast.makeText(MainActivity.this, "Score +"+String.valueOf(count), Toast.LENGTH_SHORT).show();
                             // カウント初期化
                             count = 0;
                             // 表示更新
-                            updateScore();
+                            updateView();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -122,11 +160,14 @@ public class MainActivity extends Activity {
     }
     
     public void rankingButtonOnClick(View v) {
-        startActivity(new Intent(MainActivity.this, RankingActivity.class));
+        //startActivity(new Intent(MainActivity.this, RankingActivity.class));
     }
     
-    private void updateScore() {
-        ((TextView)findViewById(R.id.textViewCount)).setText("(" + String.valueOf(count)+ ")");
-        ((TextView)findViewById(R.id.textViewScore)).setText(String.valueOf(score));
+    private void updateView() {
+        findTextViewById(R.id.textViewCount).setText("(" + String.valueOf(count)+ ")");
+    }
+    
+    private TextView findTextViewById(int id) {
+        return (TextView)findViewById(id);
     }
 }
