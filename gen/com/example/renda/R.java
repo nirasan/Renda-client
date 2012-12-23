@@ -21,41 +21,48 @@ public final class R {
         public static final int editTextPassword=0x7f070001;
         public static final int editTextUsername=0x7f070002;
         public static final int linearLayout1=0x7f070006;
-        public static final int listView1=0x7f07000e;
-        public static final int menu1=0x7f070012;
-        public static final int menu2=0x7f070013;
-        public static final int menu_settings=0x7f070011;
-        public static final int sendButton=0x7f07000c;
-        public static final int startButton=0x7f07000d;
+        public static final int listView1=0x7f070013;
+        public static final int logoutButton=0x7f070012;
+        public static final int mainButton=0x7f070010;
+        public static final int menu1=0x7f070017;
+        public static final int menu2=0x7f070018;
+        public static final int menu_settings=0x7f070016;
+        public static final int rankingButton=0x7f070011;
+        public static final int sendButton=0x7f07000e;
+        public static final int startButton=0x7f07000f;
+        public static final int textLifeTitle=0x7f070007;
         public static final int textView1=0x7f070003;
-        public static final int textViewCount=0x7f07000b;
-        public static final int textViewRankingName=0x7f070010;
-        public static final int textViewRankingRank=0x7f07000f;
-        public static final int textViewTime=0x7f070008;
-        public static final int textViewTimeTitle=0x7f070007;
-        public static final int textViewUsername=0x7f07000a;
-        public static final int textViewUsernameTitle=0x7f070009;
+        public static final int textViewCount=0x7f07000d;
+        public static final int textViewLife=0x7f070008;
+        public static final int textViewRankingName=0x7f070015;
+        public static final int textViewRankingRank=0x7f070014;
+        public static final int textViewTime=0x7f07000a;
+        public static final int textViewTimeTitle=0x7f070009;
+        public static final int textViewUsername=0x7f07000c;
+        public static final int textViewUsernameTitle=0x7f07000b;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_logo=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_oauth_login=0x7f030003;
-        public static final int activity_oauth_login_web_view=0x7f030004;
-        public static final int activity_ranking=0x7f030005;
-        public static final int activity_register=0x7f030006;
-        public static final int activity_user_login=0x7f030007;
-        public static final int ranking_row=0x7f030008;
+        public static final int activity_main_menu=0x7f030003;
+        public static final int activity_oauth_login=0x7f030004;
+        public static final int activity_oauth_login_web_view=0x7f030005;
+        public static final int activity_ranking=0x7f030006;
+        public static final int activity_register=0x7f030007;
+        public static final int activity_user_login=0x7f030008;
+        public static final int ranking_row=0x7f030009;
     }
     public static final class menu {
         public static final int activity_login=0x7f060000;
         public static final int activity_logo=0x7f060001;
         public static final int activity_main=0x7f060002;
-        public static final int activity_oauth_login=0x7f060003;
-        public static final int activity_oauth_login_web_view=0x7f060004;
-        public static final int activity_ranking=0x7f060005;
-        public static final int activity_register=0x7f060006;
-        public static final int activity_user_login=0x7f060007;
+        public static final int activity_main_menu=0x7f060003;
+        public static final int activity_oauth_login=0x7f060004;
+        public static final int activity_oauth_login_web_view=0x7f060005;
+        public static final int activity_ranking=0x7f060006;
+        public static final int activity_register=0x7f060007;
+        public static final int activity_user_login=0x7f060008;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -65,6 +72,7 @@ public final class R {
         public static final int title_activity_login=0x7f040005;
         public static final int title_activity_logo=0x7f040003;
         public static final int title_activity_main=0x7f040006;
+        public static final int title_activity_main_menu=0x7f04000d;
         public static final int title_activity_oauth_login=0x7f04000a;
         public static final int title_activity_oauth_login_web_view=0x7f04000c;
         public static final int title_activity_ranking=0x7f040008;

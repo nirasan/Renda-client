@@ -8,6 +8,7 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,8 +24,11 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     
     private int count;
+    private int life;
+    private int used_life;
     private String username;
-    private String password;
+    private String access_token;
+    private String mail_address;
     private SharedPreferences preferences;
     
 
@@ -36,10 +40,43 @@ public class MainActivity extends Activity {
         count    = 0;
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         username = preferences.getString("username", "");
-        password = preferences.getString("password", "");
-        
-        ((TextView)findViewById(R.id.textViewUsername)).setText(username);
-        updateView();
+        mail_address = preferences.getString("mail_address", "");
+        access_token = preferences.getString("access_token", "");
+
+        // ユーザー情報を更新する
+        new AsyncTaskWithDialog<Http.Result>(this) {
+            @Override
+            protected Http.Result doInBackground(Void...voids) {
+                // ユーザー情報を更新する
+                String uri = UriBuilder.user_status_url();
+                HashMap<String, String> param = new HashMap<String, String>();
+                param.put("mail_address", mail_address);
+                param.put("access_token", access_token);
+                Http.Result result = Http.Client.request("POST", uri, param);
+                return result;
+            }
+            @Override
+            protected void onPostExecuteWithDismissDialog(Http.Result result) {
+                switch (result.statusCode) {
+                    // 更新に成功したらユーザー情報を保存
+                    case HttpStatus.SC_OK:
+                        try {
+                            // ステータス更新
+                            JSONObject jsonObject = new JSONObject(result.responseBody);
+                            life = jsonObject.getInt("life");
+                            used_life = 0;
+                            // 表示更新
+                            updateView();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "something error happens.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }.execute();
         
         // タイマーで残り時間があれば減らす
         final Timer mTimer = new Timer(true);
@@ -103,10 +140,17 @@ public class MainActivity extends Activity {
     
     // スタートボタン押下で残り時間を増やしてカウント可能な状態開始
     public void startButtonOnClick(View v) {
-        TextView textViewTime = findTextViewById(R.id.textViewTime);
-        float fTime = Float.valueOf(textViewTime.getText().toString());
-        fTime += 5.0f;
-        textViewTime.setText(String.valueOf(fTime));
+        if (life > 0) {
+            // 残りタイムの加算
+            TextView textViewTime = findTextViewById(R.id.textViewTime);
+            float fTime = Float.valueOf(textViewTime.getText().toString());
+            fTime += 5.0f;
+            textViewTime.setText(String.valueOf(fTime));
+            // ライフの消費
+            life--;
+            used_life++;
+            updateView();
+        }
     }
     
     // 送信ボタンでカウントの送信
@@ -116,12 +160,13 @@ public class MainActivity extends Activity {
             
             @Override
             protected Http.Result doInBackground(Void...voids) {
-                // ユーザー情報を更新する
-                String uri = UriBuilder.user_edit_url();
+                // カウントの送信
+                String uri = UriBuilder.user_update_count_url();
                 HashMap<String, String> param = new HashMap<String, String>();
-                param.put("username", username);
-                param.put("password", password);
-                param.put("score", String.valueOf(count));
+                param.put("mail_address", mail_address);
+                param.put("access_token", access_token);
+                param.put("count",        String.valueOf(count));
+                param.put("used_life",    String.valueOf(used_life));
                 Http.Result result = Http.Client.request("POST", uri, param);
                 return result;
             }
@@ -132,27 +177,26 @@ public class MainActivity extends Activity {
                     // 更新に成功したらユーザー情報を保存してメイン画面へ
                     case HttpStatus.SC_OK:
                         try {
-                            // スコア更新
+                            // ステータス更新
                             JSONObject jsonObject = new JSONObject(result.responseBody);
-                            //score = jsonObject.getInt("score");
-                            Editor editor = preferences.edit();
-                            //editor.putInt("score", score);
-                            editor.commit();
-                            // 特典表示
-                            Toast.makeText(MainActivity.this, "Score +"+String.valueOf(count), Toast.LENGTH_SHORT).show();
+                            life = jsonObject.getInt("life");
+                            used_life = 0;
                             // カウント初期化
                             count = 0;
                             // 表示更新
                             updateView();
+                            // ステータス表示
+                            if (jsonObject.has("rankin")) {
+                                Toast.makeText(MainActivity.this, "ランキング入りしました", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, "送信しました", Toast.LENGTH_LONG).show();                                
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    // 失敗したらエラーの表示
-                    case HttpStatus.SC_NOT_FOUND:
-                        Toast.makeText(MainActivity.this, "Send failed", Toast.LENGTH_SHORT).show();
-                        break;
                     default:
+                        Toast.makeText(MainActivity.this, "something error happens.", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -164,7 +208,9 @@ public class MainActivity extends Activity {
     }
     
     private void updateView() {
+        findTextViewById(R.id.textViewUsername).setText(username);
         findTextViewById(R.id.textViewCount).setText("(" + String.valueOf(count)+ ")");
+        findTextViewById(R.id.textViewLife).setText(String.valueOf(life));
     }
     
     private TextView findTextViewById(int id) {

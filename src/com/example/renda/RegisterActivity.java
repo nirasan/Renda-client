@@ -60,7 +60,7 @@ public class RegisterActivity extends Activity {
                         Editor editor = preferences.edit();
                         editor.putString("username", username);
                         editor.commit();
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, MainMenuActivity.class));
                         break;
                     // 失敗したらログインしなおし
                     case HttpStatus.SC_BAD_REQUEST:

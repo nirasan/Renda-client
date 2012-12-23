@@ -52,7 +52,7 @@ public class UserLoginActivity extends Activity {
                             }
                         }
                         */
-                        startActivity(new Intent(UserLoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(UserLoginActivity.this, MainMenuActivity.class));
                         break;
                         /*
                         try {

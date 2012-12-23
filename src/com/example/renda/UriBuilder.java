@@ -16,8 +16,15 @@ public class UriBuilder {
     }
     
     public static String user_register_url() {
-        return builder().path("/user/register")
-                .build().toString();
+        return builder().path("/user/register").build().toString();
+    }
+    
+    public static String user_status_url() {
+        return builder().path("/user/status").build().toString();
+    }
+    
+    public static String user_update_count_url() {
+        return builder().path("/user/update_count").build().toString();
     }
     
     public static String user_edit_url() {

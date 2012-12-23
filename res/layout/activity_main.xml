@@ -18,17 +18,32 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/countButton"
         android:layout_centerHorizontal="true" >
+        
+        <TextView
+            android:id="@+id/textLifeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Life:" />
 
+        <TextView
+            android:id="@+id/textViewLife"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:text="0" />
+        
         <TextView
             android:id="@+id/textViewTimeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="32dp"
             android:text="Time:" />
 
         <TextView
             android:id="@+id/textViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
             android:text="0.0" />
     </LinearLayout>
 
