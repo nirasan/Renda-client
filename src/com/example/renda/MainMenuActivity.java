@@ -18,41 +18,17 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
-        return true;
-    }
-    
-    public void mainButtonOnClick(View view) {
-        startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
-    }
-    public void rankingButtonOnClick(View view) {
-        startActivity(new Intent(MainMenuActivity.this, RankingActivity.class));
-    }
-    public void logoutButtonOnClick(View view) {
-        // プリファレンスを空に
-        Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-        // OAuth認証をやりなおす
-        startActivity(new Intent(MainMenuActivity.this, OAuthLoginActivity.class));
-    }
-    
     int life;
     String username;
     String mail_address;
     String access_token;
     SharedPreferences preferences;
     
-    // onResumeでライフの回復をする
-    public void onResume(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
+        
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         username     = preferences.getString("username", "");
         mail_address = preferences.getString("mail_address", "");
@@ -94,6 +70,27 @@ public class MainMenuActivity extends Activity {
                 }
             }
         }.execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
+    
+    public void mainButtonOnClick(View view) {
+        startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
+    }
+    public void rankingButtonOnClick(View view) {
+        startActivity(new Intent(MainMenuActivity.this, RankingActivity.class));
+    }
+    public void logoutButtonOnClick(View view) {
+        // プリファレンスを空に
+        Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        // OAuth認証をやりなおす
+        startActivity(new Intent(MainMenuActivity.this, OAuthLoginActivity.class));
     }
     
     private void updateView() {

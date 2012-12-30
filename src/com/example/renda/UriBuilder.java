@@ -26,14 +26,12 @@ public class UriBuilder {
     public static String user_update_count_url() {
         return builder().path("/user/update_count").build().toString();
     }
-    
-    public static String user_edit_url() {
-        return builder().path("/user/edit")
-                .build().toString();
-    }
-    
-    public static String user_ranking_url() {
-        return builder().path("/user/ranking")
+
+    public static String user_ranking_url(String mail_address, String access_token) {
+        return builder()
+                .path("/ranking/personal")
+                .appendQueryParameter("mail_address", mail_address)
+                .appendQueryParameter("access_token", access_token)
                 .build().toString();
     }
     
