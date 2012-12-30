@@ -27,9 +27,9 @@ public class UriBuilder {
         return builder().path("/user/update_count").build().toString();
     }
 
-    public static String user_ranking_url(String mail_address, String access_token) {
+    public static String user_ranking_url(String category, String mail_address, String access_token) {
         return builder()
-                .path("/ranking/personal")
+                .path("/ranking/" + category)
                 .appendQueryParameter("mail_address", mail_address)
                 .appendQueryParameter("access_token", access_token)
                 .build().toString();

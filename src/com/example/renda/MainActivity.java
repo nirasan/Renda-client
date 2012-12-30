@@ -187,7 +187,7 @@ public class MainActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(MainActivity.this, RankingActivity.class));
+                        startActivity(new Intent(MainActivity.this, RankingTabActivity.class));
                     }
                 }
         );

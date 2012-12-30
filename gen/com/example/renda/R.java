@@ -51,9 +51,13 @@ public final class R {
         public static final int activity_oauth_login=0x7f030004;
         public static final int activity_oauth_login_web_view=0x7f030005;
         public static final int activity_ranking=0x7f030006;
-        public static final int activity_register=0x7f030007;
-        public static final int activity_user_login=0x7f030008;
-        public static final int ranking_row=0x7f030009;
+        public static final int activity_ranking_base=0x7f030007;
+        public static final int activity_ranking_general=0x7f030008;
+        public static final int activity_ranking_personal=0x7f030009;
+        public static final int activity_ranking_tab=0x7f03000a;
+        public static final int activity_register=0x7f03000b;
+        public static final int activity_user_login=0x7f03000c;
+        public static final int ranking_row=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_login=0x7f060000;
@@ -63,8 +67,14 @@ public final class R {
         public static final int activity_oauth_login=0x7f060004;
         public static final int activity_oauth_login_web_view=0x7f060005;
         public static final int activity_ranking=0x7f060006;
-        public static final int activity_register=0x7f060007;
-        public static final int activity_user_login=0x7f060008;
+        public static final int activity_ranking_base=0x7f060007;
+        public static final int activity_ranking_general=0x7f060008;
+        public static final int activity_ranking_personal=0x7f060009;
+        public static final int activity_ranking_tab=0x7f06000a;
+        public static final int activity_register=0x7f06000b;
+        public static final int activity_tab1=0x7f06000c;
+        public static final int activity_tab2=0x7f06000d;
+        public static final int activity_user_login=0x7f06000e;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -78,7 +88,13 @@ public final class R {
         public static final int title_activity_oauth_login=0x7f04000a;
         public static final int title_activity_oauth_login_web_view=0x7f04000c;
         public static final int title_activity_ranking=0x7f040008;
+        public static final int title_activity_ranking_base=0x7f040011;
+        public static final int title_activity_ranking_general=0x7f040013;
+        public static final int title_activity_ranking_personal=0x7f040012;
+        public static final int title_activity_ranking_tab=0x7f04000e;
         public static final int title_activity_register=0x7f040007;
+        public static final int title_activity_tab1=0x7f04000f;
+        public static final int title_activity_tab2=0x7f040010;
         public static final int title_activity_test=0x7f040009;
         public static final int title_activity_user_login=0x7f04000b;
     }

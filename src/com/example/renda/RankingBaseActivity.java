@@ -20,14 +20,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RankingActivity extends Activity {
+public abstract class RankingBaseActivity extends Activity {
     
     private String access_token;
     private String mail_address;
     private SharedPreferences preferences;
 
+    private RankingBaseActivity mActivity;
     private ArrayList<HashMap<String, String>> userdatas;
-
+    
+    public abstract String getCategory();
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,8 @@ public class RankingActivity extends Activity {
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         mail_address = preferences.getString("mail_address", "");
         access_token = preferences.getString("access_token", "");
-
+        
+        mActivity = this;
         userdatas = new ArrayList<HashMap<String,String>>();
         
         new AsyncTaskWithDialog<Http.Result>(this) {
@@ -44,7 +48,8 @@ public class RankingActivity extends Activity {
             @Override
             protected Http.Result doInBackground(Void...voids) {
                 // ランキングの取得
-                String uri = UriBuilder.user_ranking_url("personal",mail_address, access_token);
+                String category = mActivity.getCategory();
+                String uri = UriBuilder.user_ranking_url(category, mail_address, access_token);
                 Http.Result result = Http.Client.request("GET", uri);
                 return result;
             }
@@ -70,7 +75,7 @@ public class RankingActivity extends Activity {
                             }
                             // ランキングのリスト表示
                             ArrayAdapter<HashMap<String, String>> adapter = new UserdataAdapter(
-                                    RankingActivity.this, 
+                                    mActivity, 
                                     R.layout.ranking_row, 
                                     userdatas
                             );
@@ -82,7 +87,7 @@ public class RankingActivity extends Activity {
                         break;
                     // 失敗したらエラーの表示
                     case HttpStatus.SC_NOT_FOUND:
-                        Toast.makeText(RankingActivity.this, "load failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "load failed", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -120,3 +125,4 @@ public class RankingActivity extends Activity {
         }  
     }
 }
+
