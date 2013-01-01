@@ -20,5 +20,6 @@
     <string name="title_activity_ranking_base">RankingBaseActivity</string>
     <string name="title_activity_ranking_personal">RankingPersonalActivity</string>
     <string name="title_activity_ranking_general">RankingGeneralActivity</string>
+    <string name="title_activity_ranking_spinner">RankingSpinnerActivity</string>
 
 </resources>

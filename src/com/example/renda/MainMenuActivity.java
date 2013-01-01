@@ -82,7 +82,7 @@ public class MainMenuActivity extends Activity {
         startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
     }
     public void rankingButtonOnClick(View view) {
-        startActivity(new Intent(MainMenuActivity.this, RankingTabActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, RankingSpinnerActivity.class));
     }
     public void logoutButtonOnClick(View view) {
         // プリファレンスを空に
