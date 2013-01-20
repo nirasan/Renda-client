@@ -79,7 +79,8 @@ public class MainMenuActivity extends Activity {
     }
     
     public void mainButtonOnClick(View view) {
-        startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
+        //startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, AccelerometeraSensorActivity.class));
     }
     public void rankingButtonOnClick(View view) {
         startActivity(new Intent(MainMenuActivity.this, RankingSpinnerActivity.class));

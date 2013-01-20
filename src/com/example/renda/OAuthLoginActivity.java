@@ -20,7 +20,7 @@ public class OAuthLoginActivity extends Activity {
         CookieSyncManager.createInstance(getApplicationContext());
         
         Intent intent = new Intent(this, OAuthLoginWebViewActivity.class);
-        intent.setData(Uri.parse("http://mother.example.com:3000/oauth/index"));
+        intent.setData(Uri.parse("http://secret-springs-7284.herokuapp.com/oauth/index"));
         startActivityForResult(intent, 0);
     }
 

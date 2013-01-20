@@ -5,7 +5,8 @@ import android.net.Uri;
 public class UriBuilder {
     
     private static final String scheme = "http";
-    private static final String authority = "mother.example.com:3000";
+    //private static final String authority = "mother.example.com:3000";
+    private static final String authority = "secret-springs-7284.herokuapp.com";
      
     public static String user_exist_url(String mail_address, String access_token) {
         return builder()

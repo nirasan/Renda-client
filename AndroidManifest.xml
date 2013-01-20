@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="13"
+        android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -151,6 +151,15 @@
         <activity
             android:name=".RankingSpinnerActivity"
             android:label="@string/title_activity_ranking_spinner" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AccelerometeraSensorActivity"
+            android:label="@string/title_activity_accelerometera_sensor" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
