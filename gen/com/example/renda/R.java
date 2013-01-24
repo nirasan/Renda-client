@@ -28,14 +28,14 @@ public final class R {
         public static final int linearLayout1=0x7f070000;
         public static final int linearLayout2=0x7f070001;
         public static final int linearLayout3=0x7f070004;
-        public static final int listView1=0x7f070015;
+        public static final int listView1=0x7f070016;
         public static final int logoutButton=0x7f070014;
         public static final int mainButton=0x7f070012;
         public static final int menu1=0x7f07001c;
         public static final int menu2=0x7f07001d;
         public static final int menu_settings=0x7f07001b;
         public static final int rankingButton=0x7f070013;
-        public static final int spinner1=0x7f070016;
+        public static final int spinner1=0x7f070015;
         public static final int textView1=0x7f07000c;
         public static final int textViewCount=0x7f070006;
         public static final int textViewCountTitle=0x7f070005;
@@ -57,15 +57,10 @@ public final class R {
         public static final int activity_main_menu=0x7f030004;
         public static final int activity_oauth_login=0x7f030005;
         public static final int activity_oauth_login_web_view=0x7f030006;
-        public static final int activity_ranking=0x7f030007;
-        public static final int activity_ranking_base=0x7f030008;
-        public static final int activity_ranking_general=0x7f030009;
-        public static final int activity_ranking_personal=0x7f03000a;
-        public static final int activity_ranking_spinner=0x7f03000b;
-        public static final int activity_ranking_tab=0x7f03000c;
-        public static final int activity_register=0x7f03000d;
-        public static final int activity_user_login=0x7f03000e;
-        public static final int ranking_row=0x7f03000f;
+        public static final int activity_ranking_spinner=0x7f030007;
+        public static final int activity_register=0x7f030008;
+        public static final int activity_user_login=0x7f030009;
+        public static final int ranking_row=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_accelerometera_sensor=0x7f060000;
