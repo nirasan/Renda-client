@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +19,7 @@ public class OAuthLoginActivity extends Activity {
         CookieSyncManager.createInstance(getApplicationContext());
         
         Intent intent = new Intent(this, OAuthLoginWebViewActivity.class);
-        intent.setData(Uri.parse("http://secret-springs-7284.herokuapp.com/oauth/index"));
+        intent.setData(UriBuilder.oauth_start_uri());
         startActivityForResult(intent, 0);
     }
 
