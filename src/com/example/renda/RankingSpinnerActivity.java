@@ -10,8 +10,10 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -143,6 +145,16 @@ public class RankingSpinnerActivity extends Activity {
             ((TextView)view.findViewById(R.id.textViewRankingCount)).setText(item.get("count"));
             return view;
         }  
+    }
+    
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            startActivity(new Intent(RankingSpinnerActivity.this, MainMenuActivity.class));
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
     }
 
     @Override
