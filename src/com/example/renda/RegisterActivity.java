@@ -24,12 +24,12 @@ public class RegisterActivity extends Activity {
 
     public void registerButtonOnClick(View v) {
         
-        // ユーザー名とパスワードをプリファレンスから取得
+        // メールアドレスとアクセストークンをプリファレンスから取得
         final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
         final String access_token = preferences.getString("access_token", "");
         final String mail_address = preferences.getString("mail_address", "");
         
-        // ユーザー名とパスワードを入力欄から取得
+        // ユーザー名を入力欄から取得
         final String username = ((EditText)findViewById(R.id.editTextUsername)).getText().toString();
         
         // 取得できなければエラーの表示

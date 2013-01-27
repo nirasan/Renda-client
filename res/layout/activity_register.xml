@@ -9,29 +9,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Register" 
+        android:text="@string/register_button"
         android:onClick="registerButtonOnClick" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPassword" 
-        android:hint="password">
-
-        <requestFocus />
-    </EditText>
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextPassword"
+        android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:hint="username"
+        android:hint="@string/register_hint"
         android:ems="10" />
 
     <TextView
