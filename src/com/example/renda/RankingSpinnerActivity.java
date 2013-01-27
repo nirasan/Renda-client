@@ -2,6 +2,7 @@ package com.example.renda;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
@@ -9,20 +10,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class RankingSpinnerActivity extends Activity {
@@ -31,7 +29,7 @@ public class RankingSpinnerActivity extends Activity {
     private String mail_address;
     private SharedPreferences preferences;
 
-    private ArrayList<HashMap<String, String>> userdatas;
+    private ArrayList<Map<String, String>> list_datas;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,7 @@ public class RankingSpinnerActivity extends Activity {
         mail_address = preferences.getString("mail_address", "");
         access_token = preferences.getString("access_token", "");
 
-        userdatas = new ArrayList<HashMap<String,String>>();
+        list_datas = new ArrayList<Map<String,String>>();
         
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,6 +74,8 @@ public class RankingSpinnerActivity extends Activity {
                         switch (result.statusCode) {
                             case HttpStatus.SC_OK:
                                 try {
+                                    // ランキングデータの初期化
+                                    list_datas.clear();
                                     // ランキング情報の変換
                                     JSONArray jsonArray = new JSONArray(result.responseBody);
                                     int length = jsonArray.length();
@@ -84,19 +84,20 @@ public class RankingSpinnerActivity extends Activity {
                                         String username = jsonObject.getString("username");
                                         int count = jsonObject.getInt("count");
                                         int rank = jsonObject.getInt("rank");
-                                        HashMap<String, String> userdata = new HashMap<String, String>();
-                                        userdata.put("username",username);
-                                        userdata.put("count",String.valueOf(count));
-                                        userdata.put("rank",String.valueOf(rank));
-                                        userdatas.add(userdata);
+                                        Map<String, String> list_data = new HashMap<String, String>();
+                                        list_data.put("title", String.valueOf(rank) + "位: " + username);
+                                        list_data.put("sub_title", String.valueOf(count));
+                                        list_datas.add(list_data);
                                     }
                                     // ランキングのリスト表示
-                                    ArrayAdapter<HashMap<String, String>> adapter = new UserdataAdapter(
+                                    ListView listView = (ListView)findViewById(R.id.listView1); 
+                                    SimpleAdapter adapter = new SimpleAdapter(
                                             RankingSpinnerActivity.this, 
-                                            R.layout.ranking_row, 
-                                            userdatas
+                                            list_datas,
+                                            android.R.layout.simple_list_item_2,
+                                            new String[] { "title", "sub_title" },
+                                            new int[] { android.R.id.text1, android.R.id.text2 }
                                     );
-                                    ListView listView = (ListView)findViewById(R.id.listView1);
                                     listView.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -116,35 +117,6 @@ public class RankingSpinnerActivity extends Activity {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-    }
-    
-    private class UserdataAdapter extends ArrayAdapter<HashMap<String, String>> {
-        
-        private ArrayList<HashMap<String, String>> items;
-        private LayoutInflater inflater;
-        
-        public UserdataAdapter(Context context, int textViewResourceId, ArrayList<HashMap<String, String>> items) {  
-            super(context, textViewResourceId, items);  
-            this.items = items;  
-            this.inflater = (LayoutInflater) context  
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-        }
-        
-        @Override  
-        public View getView(int position, View convertView, ViewGroup parent) {  
-            // ビューを受け取る  
-            View view = convertView;
-            if (view == null) {
-                // 受け取ったビューがnullなら新しくビューを生成  
-                view = inflater.inflate(R.layout.ranking_row, null);
-            }
-            // 表示すべきデータの取得
-            HashMap<String, String> item = items.get(position);
-            ((TextView)view.findViewById(R.id.textViewRankingRank)).setText(item.get("rank")+"位");
-            ((TextView)view.findViewById(R.id.textViewRankingName)).setText(item.get("username"));
-            ((TextView)view.findViewById(R.id.textViewRankingCount)).setText(item.get("count"));
-            return view;
-        }  
     }
     
     @Override
