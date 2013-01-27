@@ -84,9 +84,10 @@ public class RankingSpinnerActivity extends Activity {
                                         String username = jsonObject.getString("username");
                                         int count = jsonObject.getInt("count");
                                         int rank = jsonObject.getInt("rank");
+                                        String created_at = jsonObject.getString("created_at");
                                         Map<String, String> list_data = new HashMap<String, String>();
                                         list_data.put("title", String.valueOf(rank) + "位: " + username);
-                                        list_data.put("sub_title", String.valueOf(count));
+                                        list_data.put("sub_title", String.valueOf(count) + " " + created_at);
                                         list_datas.add(list_data);
                                     }
                                     // ランキングのリスト表示
