@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LogoActivity"
-            android:label="@string/title_activity_logo" >
+            android:label="@string/title_activity_logo" 
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +35,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +45,8 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +55,8 @@
         </activity>
         <activity
             android:name=".RankingActivity"
-            android:label="@string/title_activity_ranking" >
+            android:label="@string/title_activity_ranking"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +65,8 @@
         </activity>
         <activity
             android:name=".OAuthLoginActivity"
-            android:label="@string/title_activity_oauth_login" >
+            android:label="@string/title_activity_oauth_login"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +75,8 @@
         </activity>
         <activity
             android:name=".UserLoginActivity"
-            android:label="@string/title_activity_user_login" >
+            android:label="@string/title_activity_user_login"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +85,8 @@
         </activity>
         <activity
             android:name=".OAuthLoginWebViewActivity"
-            android:label="@string/title_activity_oauth_login_web_view" >
+            android:label="@string/title_activity_oauth_login_web_view"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -87,7 +95,8 @@
         </activity>
         <activity
             android:name=".MainMenuActivity"
-            android:label="@string/title_activity_main_menu" >
+            android:label="@string/title_activity_main_menu"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,7 +105,8 @@
         </activity>
         <activity
             android:name=".RankingTabActivity"
-            android:label="@string/title_activity_ranking_tab" >
+            android:label="@string/title_activity_ranking_tab"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -105,7 +115,8 @@
         </activity>
         <activity
             android:name=".Tab1Activity"
-            android:label="@string/title_activity_tab1" >
+            android:label="@string/title_activity_tab1"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -114,7 +125,8 @@
         </activity>
         <activity
             android:name=".Tab2Activity"
-            android:label="@string/title_activity_tab2" >
+            android:label="@string/title_activity_tab2"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -123,7 +135,8 @@
         </activity>
         <activity
             android:name=".RankingBaseActivity"
-            android:label="@string/title_activity_ranking_base" >
+            android:label="@string/title_activity_ranking_base"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -132,7 +145,8 @@
         </activity>
         <activity
             android:name=".RankingPersonalActivity"
-            android:label="@string/title_activity_ranking_personal" >
+            android:label="@string/title_activity_ranking_personal"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -141,7 +155,8 @@
         </activity>
         <activity
             android:name=".RankingGeneralActivity"
-            android:label="@string/title_activity_ranking_general" >
+            android:label="@string/title_activity_ranking_general"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -150,7 +165,8 @@
         </activity>
         <activity
             android:name=".RankingSpinnerActivity"
-            android:label="@string/title_activity_ranking_spinner" >
+            android:label="@string/title_activity_ranking_spinner"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -159,7 +175,8 @@
         </activity>
         <activity
             android:name=".AccelerometeraSensorActivity"
-            android:label="@string/title_activity_accelerometera_sensor" >
+            android:label="@string/title_activity_accelerometera_sensor"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
