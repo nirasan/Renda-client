@@ -30,6 +30,7 @@ import android.widget.Toast;
 public class AccelerometeraSensorActivity extends Activity {
 
     private int count;
+    private int game_time;
     private String access_token;
     private String mail_address;
     private SharedPreferences preferences;    
@@ -46,6 +47,7 @@ public class AccelerometeraSensorActivity extends Activity {
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         mail_address = preferences.getString("mail_address", "");
         access_token = preferences.getString("access_token", "");
+        game_time    = preferences.getInt("game_time", 5);
 
         findTextViewById(R.id.textViewTime).setText("0.0");
         
@@ -103,7 +105,7 @@ public class AccelerometeraSensorActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 残りタイムの追加
-                        findTextViewById(R.id.textViewTime).setText("5.0");
+                        findTextViewById(R.id.textViewTime).setText(String.valueOf(game_time) + ".0");
                         // センサーでカウントアップ開始
                         List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
                         if (sensors.size() > 0) {
@@ -207,13 +209,23 @@ public class AccelerometeraSensorActivity extends Activity {
                         try {
                             // ステータス更新
                             JSONObject jsonObject = new JSONObject(result.responseBody);
-                            int life = jsonObject.getInt("life");
-                            Editor editor = preferences.edit();
-                            editor.putInt("life", life);
-                            editor.commit();
+                            int level = jsonObject.getInt("level");
+                            int total_count = jsonObject.getInt("total_count");
+                            int next_level_count = jsonObject.getInt("next_level_count");
                             // 終了ダイアログの表示
-                            String message = jsonObject.has("rankin") ? "ランキング入りしました" : "送信しました";
-                            showFinishDialog(message);
+                            String title = "送信しました";
+                            String message =  "発電量:" + count;
+                                   message += "\n総発電量:" + total_count;
+                            if (next_level_count != 0) {
+                                   message += "/" + next_level_count;
+                            }
+                            if (jsonObject.has("rankin")) {
+                                   message += "\nランキング入りしました！";
+                            }
+                            if (jsonObject.has("levelup")) {
+                                   message += "\nレベルが上がりました！";
+                            }
+                            showFinishDialog(title, message);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -227,10 +239,10 @@ public class AccelerometeraSensorActivity extends Activity {
     }
 
     // 終了ダイアログの表示
-    private void showFinishDialog(String message) {
+    private void showFinishDialog(String title, String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AccelerometeraSensorActivity.this);
-        alertDialogBuilder.setTitle(message);
-        //alertDialogBuilder.setMessage("メッセージ");
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setPositiveButton(
                 "ランキングへ",
                 new DialogInterface.OnClickListener() {

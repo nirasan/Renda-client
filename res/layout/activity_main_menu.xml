@@ -19,24 +19,42 @@
             android:layout_height="wrap_content"
             android:text="" />
         
-        <!-- ライフ -->
+        <!-- レベル -->
         <LinearLayout
 	        android:id="@+id/linearLayout2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal">
             <TextView
-	            android:id="@+id/textViewLifeTitle"
+	            android:id="@+id/textViewLevelTitle"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Life:" />
+	            android:text="Level:" />
       		<TextView
-	            android:id="@+id/textViewLife"
+	            android:id="@+id/textViewLevel"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="" />            
 	    </LinearLayout>
-        
+
+        <!-- カウント -->
+        <LinearLayout
+	        android:id="@+id/linearLayout3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+            <TextView
+	            android:id="@+id/textViewCountTitle"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Count:" />
+      		<TextView
+	            android:id="@+id/textViewCount"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="" />            
+	    </LinearLayout>
+	    
         <!-- ゲーム画面へ -->
     	<Button
 	        android:id="@+id/mainButton"

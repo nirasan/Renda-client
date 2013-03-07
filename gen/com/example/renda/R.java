@@ -39,8 +39,8 @@ public final class R {
         public static final int textView1=0x7f07000c;
         public static final int textViewCount=0x7f070006;
         public static final int textViewCountTitle=0x7f070005;
-        public static final int textViewLife=0x7f070011;
-        public static final int textViewLifeTitle=0x7f070010;
+        public static final int textViewLevel=0x7f070011;
+        public static final int textViewLevelTitle=0x7f070010;
         public static final int textViewRankingCount=0x7f070019;
         public static final int textViewRankingName=0x7f07001a;
         public static final int textViewRankingRank=0x7f070018;

@@ -18,7 +18,10 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity {
 
-    int life;
+    int level;
+    int game_time;
+    int total_count;
+    int next_level_count;
     String username;
     String mail_address;
     String access_token;
@@ -54,9 +57,15 @@ public class MainMenuActivity extends Activity {
                         try {
                             // ステータス更新
                             JSONObject jsonObject = new JSONObject(result.responseBody);
-                            life = jsonObject.getInt("life");
+                            level            = jsonObject.getInt("level");
+                            game_time        = jsonObject.getInt("game_time");
+                            total_count      = jsonObject.getInt("total_count");
+                            next_level_count = jsonObject.getInt("next_level_count");
                             Editor editor = preferences.edit();
-                            editor.putInt("life", life);
+                            editor.putInt("level", level);
+                            editor.putInt("game_time", game_time);
+                            editor.putInt("total_count", total_count);
+                            editor.putInt("next_level_count", next_level_count);
                             editor.commit();
                             // 表示更新
                             updateView();
@@ -96,7 +105,12 @@ public class MainMenuActivity extends Activity {
     
     private void updateView() {
         findTextViewById(R.id.textViewUsername).setText(username);
-        findTextViewById(R.id.textViewLife).setText(String.valueOf(life));
+        findTextViewById(R.id.textViewLevel).setText(String.valueOf(level));
+        if (next_level_count != 0) {
+            findTextViewById(R.id.textViewCount).setText(String.valueOf(total_count) + "/" + String.valueOf(next_level_count));
+        } else {
+            findTextViewById(R.id.textViewCount).setText(String.valueOf(total_count));
+        }
     }
     
     private TextView findTextViewById(int id) {

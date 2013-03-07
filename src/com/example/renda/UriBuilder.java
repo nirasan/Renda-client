@@ -6,7 +6,7 @@ public class UriBuilder {
     
     private static final String scheme = "http";
     //private static final String authority = "mother.example.com:3000";
-    private static final String authority = "pure-thicket-4789.herokuapp.com";
+    private static final String authority = "mysterious-woodland-9023.herokuapp.com";
     
     public static Uri oauth_start_uri() {
         return builder().path("/oauth/index").build();
