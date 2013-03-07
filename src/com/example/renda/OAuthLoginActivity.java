@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.Window;
 import android.webkit.CookieSyncManager;
 
 public class OAuthLoginActivity extends Activity {
@@ -14,6 +15,7 @@ public class OAuthLoginActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_oauth_login);
         
         CookieSyncManager.createInstance(getApplicationContext());

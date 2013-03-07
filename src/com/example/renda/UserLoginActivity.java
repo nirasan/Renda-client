@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.Toast;
 
 public class UserLoginActivity extends Activity {
@@ -15,6 +16,7 @@ public class UserLoginActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_user_login);
         
         final SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
