@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:background="#000000"
+    android:textColor="#ffffff" >
     
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -22,12 +24,14 @@
 	            android:id="@+id/textViewTimeTitle"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Time:" />
+	            android:text="残り時間:" 
+	            android:textColor="#ffffff" />
       		<TextView
 	            android:id="@+id/textViewTime"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="0.0" />            
+	            android:text="0.0" 
+	            android:textColor="#ffffff" />            
 	    </LinearLayout>
 	    
         <!-- カウント -->
@@ -40,24 +44,20 @@
 	            android:id="@+id/textViewCountTitle"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Count:" />
+	            android:text="発電量:" 
+	            android:textColor="#ffffff" />
       		<TextView
 	            android:id="@+id/textViewCount"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="0" />
+	            android:text="0" 
+	            android:textColor="#ffffff" />
 	    </LinearLayout>   
 	    
 	    <ImageView 
 	        android:id="@+id/imageView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"/>
-	    
-	   <TextView
-            android:id="@+id/textViewZ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
 	          		
     </LinearLayout>
 

@@ -51,8 +51,8 @@ public class RankingSpinnerActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // アイテムを追加します
-        adapter.add("personal");
-        adapter.add("general");
+        adapter.add("個人ランキング");
+        adapter.add("全体ランキング");
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
         // アダプターを設定します
         spinner.setAdapter(adapter);

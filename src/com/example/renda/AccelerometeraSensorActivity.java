@@ -72,17 +72,14 @@ public class AccelerometeraSensorActivity extends Activity {
                     // 残りタイムが有り、前進から後退へ切り替わったタイミングでカウントをインクリメントする
                     if (fTime > 0.0f && isReturn) {
                         count++;
-                        findTextViewById(R.id.textViewCount).setText("(" + String.valueOf(count)+ ")");
+                        findTextViewById(R.id.textViewCount).setText(String.valueOf(count) + " Wh");
                     }
                     
-                    int drawable_id = isPositive ? R.drawable.hato_pogi : R.drawable.hato_nega;
+                    int drawable_id = isPositive ? R.drawable.hato_1 : R.drawable.hato_2;
                     imageView.setImageResource(drawable_id);
                     
                     lastZ = currZ;
                     lastIsPositive = isPositive;
-                    
-                    //for debug
-                    findTextViewById(R.id.textViewZ).setText(String.valueOf(currZ));
                 }
             }
             @Override
@@ -148,17 +145,6 @@ public class AccelerometeraSensorActivity extends Activity {
                 });
             }
         }, 100, 100);
-    }
-    
-    // カウントボタン押下時に残り時間があればカウントアップ
-    public void countButtonOnClick(View v) {
-        TextView textViewTime = findTextViewById(R.id.textViewTime);
-        float fTime = Float.valueOf(textViewTime.getText().toString());
-        fTime = Float.valueOf(String.format("%.1f", fTime));
-        if (fTime > 0.0f) {
-            count++;
-            findTextViewById(R.id.textViewCount).setText("(" + String.valueOf(count)+ ")");
-        }
     }
 
     // 結果送信ダイアログの表示
