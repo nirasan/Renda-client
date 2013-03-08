@@ -9,6 +9,7 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,7 +22,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
-import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +37,7 @@ public class AccelerometeraSensorActivity extends Activity {
     private SensorManager sensorManager;
     private SensorEventListener sensorEventListener;
     private ImageView imageView;
+    private int end_count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class AccelerometeraSensorActivity extends Activity {
         mail_address = preferences.getString("mail_address", "");
         access_token = preferences.getString("access_token", "");
         game_time    = preferences.getInt("game_time", 5);
+        end_count = 1;
 
         findTextViewById(R.id.textViewTime).setText("0.0");
         
@@ -70,13 +72,14 @@ public class AccelerometeraSensorActivity extends Activity {
                     fTime = Float.valueOf(String.format("%.1f", fTime));
                     
                     // 残りタイムが有り、前進から後退へ切り替わったタイミングでカウントをインクリメントする
-                    if (fTime > 0.0f && isReturn) {
-                        count++;
-                        findTextViewById(R.id.textViewCount).setText(String.valueOf(count) + " Wh");
+                    if (fTime > 0.0f) {
+                        if (isReturn) {
+                            count++;
+                            findTextViewById(R.id.textViewCount).setText(String.valueOf(count) + " Wh");
+                        }
+                        int drawable_id = isPositive ? R.drawable.hato_1 : R.drawable.hato_2;
+                        imageView.setImageResource(drawable_id);
                     }
-                    
-                    int drawable_id = isPositive ? R.drawable.hato_1 : R.drawable.hato_2;
-                    imageView.setImageResource(drawable_id);
                     
                     lastZ = currZ;
                     lastIsPositive = isPositive;
@@ -138,8 +141,20 @@ public class AccelerometeraSensorActivity extends Activity {
                             fTime -= 0.1;
                             textViewTime.setText(String.format("%.1f", fTime));
                         } else {
-                            showSendDialog();
-                            mTimer.cancel();
+                            if (end_count < 28) {
+                                int drawable_id = end_count ==  1 ? R.drawable.hato_end_1
+                                                : end_count ==  7 ? R.drawable.hato_end_2 
+                                                : end_count == 14 ? R.drawable.hato_end_3
+                                                : end_count == 21 ? R.drawable.hato_end_4
+                                                :                                       0;
+                                if (drawable_id != 0) {
+                                    imageView.setImageResource(drawable_id);
+                                }   
+                                end_count += 1;
+                            } else {
+                                showSendDialog();
+                                mTimer.cancel();
+                            }
                         }
                     }
                 });
