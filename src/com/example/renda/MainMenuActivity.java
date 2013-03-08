@@ -108,11 +108,12 @@ public class MainMenuActivity extends Activity {
     private void updateView() {
         findTextViewById(R.id.textViewUsername).setText(username);
         findTextViewById(R.id.textViewLevel).setText(String.valueOf(level));
+        String countString = String.valueOf(total_count);
         if (next_level_count != 0) {
-            findTextViewById(R.id.textViewCount).setText(String.valueOf(total_count) + "/" + String.valueOf(next_level_count));
-        } else {
-            findTextViewById(R.id.textViewCount).setText(String.valueOf(total_count));
+            countString += "/" + String.valueOf(next_level_count);
         }
+        countString += " Wh";
+        findTextViewById(R.id.textViewCount).setText(countString);
     }
     
     private TextView findTextViewById(int id) {

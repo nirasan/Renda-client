@@ -215,11 +215,12 @@ public class AccelerometeraSensorActivity extends Activity {
                             int next_level_count = jsonObject.getInt("next_level_count");
                             // 終了ダイアログの表示
                             String title = "送信しました";
-                            String message =  "発電量:" + count;
+                            String message =  "発電量:" + count + "Wh";
                                    message += "\n総発電量:" + total_count;
                             if (next_level_count != 0) {
                                    message += "/" + next_level_count;
                             }
+                            message += "Wh";
                             if (jsonObject.has("rankin")) {
                                    message += "\nランキング入りしました！";
                             }

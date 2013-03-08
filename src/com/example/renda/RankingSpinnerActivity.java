@@ -1,8 +1,12 @@
 package com.example.renda;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
@@ -87,9 +91,16 @@ public class RankingSpinnerActivity extends Activity {
                                         int count = jsonObject.getInt("count");
                                         int rank = jsonObject.getInt("rank");
                                         String created_at = jsonObject.getString("created_at");
+                                        
+                                        // 日時の表示調整
+                                        Date date = (new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'"))
+                                                .parse(created_at, new ParsePosition(0));
+                                        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));
+                                        String dateString = (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).format(date);
+                                        
                                         Map<String, String> list_data = new HashMap<String, String>();
                                         list_data.put("title", String.valueOf(rank) + "位: " + username);
-                                        list_data.put("sub_title", String.valueOf(count) + " " + created_at);
+                                        list_data.put("sub_title", String.valueOf(count) + "Wh (" + dateString + ")");
                                         list_datas.add(list_data);
                                     }
                                     // ランキングのリスト表示
